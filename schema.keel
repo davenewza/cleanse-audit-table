@@ -1,0 +1,15 @@
+model Patient {
+    fields {
+        name Text
+        email Text @unique
+    }
+
+    actions {
+        create newPerson() with (name, email)
+        delete deletePerson(email) 
+    }
+
+    @on([delete], cleanseAuditLogs)
+
+    @permission(expression: true, actions: [create, delete])
+}
